@@ -1,4 +1,4 @@
-import { Shield, Wifi, WifiOff } from 'lucide-react';
+import { Shield, WifiOff } from 'lucide-react';
 
 export function Footer() {
   return (
