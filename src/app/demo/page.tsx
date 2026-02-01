@@ -13,7 +13,7 @@ export function DemoPage() {
   useEffect(() => {
     const scenarioId = searchParams.get('scenario');
     if (!isDemo) {
-      enterDemo(scenarioId || undefined);
+      enterDemo(scenarioId ?? undefined);
     } else if (scenarioId && activeScenario?.id !== scenarioId) {
       enterDemo(scenarioId);
     }

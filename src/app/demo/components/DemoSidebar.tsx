@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { FileText, Settings2, Code, FileJson } from 'lucide-react';
 import { useDemo } from '@/contexts/DemoContext';
 import { cn } from '@/lib/utils/cn';
-import { DemoScenario } from '@/demo/demoData';
+import type { DemoScenario } from '@/demo/demoData';
 
 const categoryIcons = {
   code: Code,
@@ -19,15 +19,12 @@ export function DemoSidebar() {
     navigate(`/demo?scenario=${scenario.id}`, { replace: true });
   };
 
-  const groupedScenarios = scenarios.reduce(
-    (acc, scenario) => {
-      const category = scenario.category;
-      if (!acc[category]) acc[category] = [];
-      acc[category].push(scenario);
-      return acc;
-    },
-    {} as Record<string, DemoScenario[]>
-  );
+  const groupedScenarios = scenarios.reduce<Record<string, DemoScenario[]>>((acc, scenario) => {
+    const category = scenario.category;
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(scenario);
+    return acc;
+  }, {});
 
   return (
     <aside className="w-72 shrink-0 overflow-y-auto border-r bg-muted/20">
@@ -39,7 +36,7 @@ export function DemoSidebar() {
 
         <div className="space-y-4">
           {Object.entries(groupedScenarios).map(([category, categoryScenarios]) => {
-            const Icon = categoryIcons[category as keyof typeof categoryIcons] || FileText;
+            const Icon = categoryIcons[category as keyof typeof categoryIcons];
             return (
               <div key={category}>
                 <div className="mb-2 flex items-center gap-2 text-xs font-medium text-muted-foreground">
@@ -50,7 +47,9 @@ export function DemoSidebar() {
                   {categoryScenarios.map((scenario) => (
                     <button
                       key={scenario.id}
-                      onClick={() => handleScenarioSelect(scenario)}
+                      onClick={() => {
+                        handleScenarioSelect(scenario);
+                      }}
                       className={cn(
                         'w-full rounded-md px-3 py-2 text-left text-sm transition-colors',
                         activeScenario?.id === scenario.id
@@ -91,7 +90,9 @@ export function DemoSidebar() {
             <input
               type="checkbox"
               checked={options.ignoreWhitespace}
-              onChange={(e) => updateOptions({ ignoreWhitespace: e.target.checked })}
+              onChange={(e) => {
+                updateOptions({ ignoreWhitespace: e.target.checked });
+              }}
               className="h-4 w-4 rounded border-gray-300"
             />
           </label>
@@ -101,7 +102,9 @@ export function DemoSidebar() {
             <input
               type="checkbox"
               checked={options.ignoreCase}
-              onChange={(e) => updateOptions({ ignoreCase: e.target.checked })}
+              onChange={(e) => {
+                updateOptions({ ignoreCase: e.target.checked });
+              }}
               className="h-4 w-4 rounded border-gray-300"
             />
           </label>
@@ -111,7 +114,9 @@ export function DemoSidebar() {
             <input
               type="checkbox"
               checked={options.trimTrailingWhitespace}
-              onChange={(e) => updateOptions({ trimTrailingWhitespace: e.target.checked })}
+              onChange={(e) => {
+                updateOptions({ trimTrailingWhitespace: e.target.checked });
+              }}
               className="h-4 w-4 rounded border-gray-300"
             />
           </label>
@@ -120,11 +125,11 @@ export function DemoSidebar() {
             <label className="mb-1.5 block text-sm">Granularity</label>
             <select
               value={options.granularity}
-              onChange={(e) =>
+              onChange={(e) => {
                 updateOptions({
                   granularity: e.target.value as 'line' | 'word' | 'character',
-                })
-              }
+                });
+              }}
               className="w-full rounded-md border bg-background px-3 py-1.5 text-sm"
             >
               <option value="line">Line</option>
@@ -139,7 +144,7 @@ export function DemoSidebar() {
       <div className="border-t p-4">
         <div className="rounded-md bg-muted/50 p-3">
           <p className="text-xs text-muted-foreground">
-            This is a demo showing DiffLocal's capabilities. In the real app, you can paste
+            This is a demo showing DiffLocal&apos;s capabilities. In the real app, you can paste
             your own content or drag and drop files to compare.
           </p>
         </div>

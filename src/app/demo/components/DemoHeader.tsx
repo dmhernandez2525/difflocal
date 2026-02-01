@@ -1,6 +1,5 @@
-import { ArrowLeft, Eye, FileText, Settings } from 'lucide-react';
+import { ArrowLeft, Eye, FileText } from 'lucide-react';
 import { useDemo } from '@/contexts/DemoContext';
-import { cn } from '@/lib/utils/cn';
 
 interface DemoHeaderProps {
   onExitDemo: () => void;
@@ -42,19 +41,13 @@ export function DemoHeader({ onExitDemo }: DemoHeaderProps) {
         <div className="flex items-center gap-4 text-sm">
           <span className="flex items-center gap-1.5">
             <span className="inline-block h-2.5 w-2.5 rounded-full bg-green-500" />
-            <span className="text-muted-foreground">
-              +{stats.added} added
-            </span>
+            <span className="text-muted-foreground">+{stats.added} added</span>
           </span>
           <span className="flex items-center gap-1.5">
             <span className="inline-block h-2.5 w-2.5 rounded-full bg-red-500" />
-            <span className="text-muted-foreground">
-              -{stats.removed} removed
-            </span>
+            <span className="text-muted-foreground">-{stats.removed} removed</span>
           </span>
-          <span className="text-muted-foreground">
-            {stats.unchanged} unchanged
-          </span>
+          <span className="text-muted-foreground">{stats.unchanged} unchanged</span>
         </div>
 
         <div className="h-6 w-px bg-border" />

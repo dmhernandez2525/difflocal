@@ -22,7 +22,9 @@ export function TextDiffPage() {
           <textarea
             id="left-content"
             value={leftContent}
-            onChange={(e) => setLeftContent(e.target.value)}
+            onChange={(e) => {
+              setLeftContent(e.target.value);
+            }}
             placeholder="Paste original text here or drag and drop a file..."
             className="min-h-[400px] w-full resize-none rounded-md border bg-background p-4 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           />
@@ -36,7 +38,9 @@ export function TextDiffPage() {
           <textarea
             id="right-content"
             value={rightContent}
-            onChange={(e) => setRightContent(e.target.value)}
+            onChange={(e) => {
+              setRightContent(e.target.value);
+            }}
             placeholder="Paste modified text here or drag and drop a file..."
             className="min-h-[400px] w-full resize-none rounded-md border bg-background p-4 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           />
