@@ -1,5 +1,14 @@
 import { Link } from 'react-router-dom';
-import { FileText, Image, FileType, Folder, FileSpreadsheet, Shield, Zap, Globe } from 'lucide-react';
+import {
+  FileText,
+  Image,
+  FileType,
+  Folder,
+  FileSpreadsheet,
+  Shield,
+  Zap,
+  Globe,
+} from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
 const features = [
@@ -115,9 +124,7 @@ export function HomePage() {
               to={available ? path : '#'}
               className={cn(
                 'group relative rounded-lg border p-6 transition-colors',
-                available
-                  ? 'hover:border-primary hover:bg-accent'
-                  : 'cursor-not-allowed opacity-60'
+                available ? 'hover:border-primary hover:bg-accent' : 'cursor-not-allowed opacity-60'
               )}
             >
               <div className="flex items-center gap-4">
@@ -126,9 +133,7 @@ export function HomePage() {
                 </div>
                 <div>
                   <h3 className="font-semibold">{title}</h3>
-                  {!available && (
-                    <span className="text-xs text-muted-foreground">Coming soon</span>
-                  )}
+                  {!available && <span className="text-xs text-muted-foreground">Coming soon</span>}
                 </div>
               </div>
               <p className="mt-3 text-sm text-muted-foreground">{description}</p>

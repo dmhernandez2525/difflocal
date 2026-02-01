@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useDemo } from '@/contexts/DemoContext';
 import { cn } from '@/lib/utils/cn';
-import { Columns, AlignJustify, SplitSquareVertical } from 'lucide-react';
-import { DiffLine } from '@/types/diff';
+import { Columns, AlignJustify } from 'lucide-react';
+import type { DiffLine } from '@/types/diff';
 
 type ViewMode = 'split' | 'unified';
 
@@ -20,24 +20,24 @@ export function DemoDiffViewer() {
           <span className="text-sm text-muted-foreground">View:</span>
           <div className="flex rounded-md border">
             <button
-              onClick={() => setViewMode('split')}
+              onClick={() => {
+                setViewMode('split');
+              }}
               className={cn(
                 'flex items-center gap-1.5 px-3 py-1.5 text-sm transition-colors',
-                viewMode === 'split'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'hover:bg-accent'
+                viewMode === 'split' ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'
               )}
             >
               <Columns className="h-4 w-4" />
               Split
             </button>
             <button
-              onClick={() => setViewMode('unified')}
+              onClick={() => {
+                setViewMode('unified');
+              }}
               className={cn(
                 'flex items-center gap-1.5 border-l px-3 py-1.5 text-sm transition-colors',
-                viewMode === 'unified'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'hover:bg-accent'
+                viewMode === 'unified' ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'
               )}
             >
               <AlignJustify className="h-4 w-4" />
@@ -46,9 +46,7 @@ export function DemoDiffViewer() {
           </div>
         </div>
 
-        <div className="text-sm text-muted-foreground">
-          {diffResult.lines.length} lines
-        </div>
+        <div className="text-sm text-muted-foreground">{diffResult.lines.length} lines</div>
       </div>
 
       {/* Diff Content */}
@@ -68,13 +66,14 @@ interface SplitViewProps {
   scenario: { original: string; modified: string };
 }
 
-function SplitView({ lines, scenario }: SplitViewProps) {
+function SplitView({ lines }: SplitViewProps) {
   // Group lines for split view - pair removed with added when they're adjacent
   const leftLines: (DiffLine | null)[] = [];
   const rightLines: (DiffLine | null)[] = [];
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
+    if (!line) continue;
 
     if (line.type === 'unchanged') {
       leftLines.push(line);
@@ -90,7 +89,8 @@ function SplitView({ lines, scenario }: SplitViewProps) {
         leftLines.push(line);
         rightLines.push(null);
       }
-    } else if (line.type === 'add') {
+    } else {
+      // line.type === 'add'
       leftLines.push(null);
       rightLines.push(line);
     }
@@ -146,9 +146,7 @@ function UnifiedView({ lines }: UnifiedViewProps) {
         >
           {/* Line numbers */}
           <div className="flex w-20 shrink-0 select-none border-r bg-muted/30 text-xs text-muted-foreground">
-            <span className="w-10 px-2 py-0.5 text-right">
-              {line.lineNumbers.left ?? ''}
-            </span>
+            <span className="w-10 px-2 py-0.5 text-right">{line.lineNumbers.left ?? ''}</span>
             <span className="w-10 border-l px-2 py-0.5 text-right">
               {line.lineNumbers.right ?? ''}
             </span>
@@ -156,12 +154,8 @@ function UnifiedView({ lines }: UnifiedViewProps) {
 
           {/* Change indicator */}
           <div className="w-6 shrink-0 select-none text-center">
-            {line.type === 'add' && (
-              <span className="text-green-600 dark:text-green-400">+</span>
-            )}
-            {line.type === 'remove' && (
-              <span className="text-red-600 dark:text-red-400">-</span>
-            )}
+            {line.type === 'add' && <span className="text-green-600 dark:text-green-400">+</span>}
+            {line.type === 'remove' && <span className="text-red-600 dark:text-red-400">-</span>}
           </div>
 
           {/* Content */}
@@ -206,18 +200,12 @@ function DiffLineComponent({ line, side }: DiffLineComponentProps) {
 
       {/* Change indicator */}
       <div className="w-6 shrink-0 select-none text-center">
-        {line.type === 'add' && (
-          <span className="text-green-600 dark:text-green-400">+</span>
-        )}
-        {line.type === 'remove' && (
-          <span className="text-red-600 dark:text-red-400">-</span>
-        )}
+        {line.type === 'add' && <span className="text-green-600 dark:text-green-400">+</span>}
+        {line.type === 'remove' && <span className="text-red-600 dark:text-red-400">-</span>}
       </div>
 
       {/* Content */}
-      <pre className="flex-1 whitespace-pre-wrap break-all px-2 py-0.5">
-        {line.content || ' '}
-      </pre>
+      <pre className="flex-1 whitespace-pre-wrap break-all px-2 py-0.5">{line.content || ' '}</pre>
     </div>
   );
 }

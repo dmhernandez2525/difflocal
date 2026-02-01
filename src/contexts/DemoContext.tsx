@@ -1,11 +1,11 @@
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
 import {
   DEMO_SCENARIOS,
   generateDemoResult,
-  DemoScenario,
+  type DemoScenario,
   DEMO_DIFF_OPTIONS,
 } from '@/demo/demoData';
-import { DiffResult, DiffOptions } from '@/types/diff';
+import type { DiffResult, DiffOptions } from '@/types/diff';
 
 interface DemoState {
   /** Whether demo mode is active */
@@ -52,11 +52,12 @@ export function DemoProvider({ children }: DemoProviderProps) {
 
   const enterDemo = useCallback(
     (scenarioId?: string) => {
-      const scenario =
-        DEMO_SCENARIOS.find((s) => s.id === scenarioId) || DEMO_SCENARIOS[0];
-      setActiveScenario(scenario);
-      computeDiff(scenario);
-      setIsDemo(true);
+      const scenario = DEMO_SCENARIOS.find((s) => s.id === scenarioId) ?? DEMO_SCENARIOS[0];
+      if (scenario) {
+        setActiveScenario(scenario);
+        computeDiff(scenario);
+        setIsDemo(true);
+      }
     },
     [computeDiff]
   );
@@ -97,6 +98,7 @@ export function DemoProvider({ children }: DemoProviderProps) {
   return <DemoContext.Provider value={value}>{children}</DemoContext.Provider>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useDemo() {
   const context = useContext(DemoContext);
   if (!context) {
@@ -105,6 +107,7 @@ export function useDemo() {
   return context;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useDemoOptional() {
   return useContext(DemoContext);
 }

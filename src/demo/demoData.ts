@@ -1,4 +1,10 @@
-import { DiffLine, DiffResult, DiffStats, DiffOptions, DEFAULT_DIFF_OPTIONS } from '@/types/diff';
+import {
+  type DiffLine,
+  type DiffResult,
+  type DiffStats,
+  type DiffOptions,
+  DEFAULT_DIFF_OPTIONS,
+} from '@/types/diff';
 
 /**
  * Sample code files for demonstrating text/code comparison
@@ -228,8 +234,8 @@ export function generateDiffLines(original: string, modified: string): DiffLine[
   let j = 0;
 
   while (i < originalLines.length || j < modifiedLines.length) {
-    const origLine = originalLines[i];
-    const modLine = modifiedLines[j];
+    const origLine = originalLines[i] ?? '';
+    const modLine = modifiedLines[j] ?? '';
 
     if (i >= originalLines.length) {
       // Only modified lines left
@@ -326,16 +332,9 @@ export function calculateDiffStats(
 /**
  * Generate a complete diff result for demo purposes
  */
-export function generateDemoResult(
-  original: string,
-  modified: string
-): DiffResult {
+export function generateDemoResult(original: string, modified: string): DiffResult {
   const lines = generateDiffLines(original, modified);
-  const stats = calculateDiffStats(
-    lines,
-    original.split('\n').length,
-    modified.split('\n').length
-  );
+  const stats = calculateDiffStats(lines, original.split('\n').length, modified.split('\n').length);
 
   return { lines, stats };
 }
