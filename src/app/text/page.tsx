@@ -5,10 +5,10 @@ export function TextDiffPage() {
   const [rightContent, setRightContent] = useState('');
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold">Text Comparison</h1>
-        <p className="text-muted-foreground">
+    <div className="container mx-auto px-4 py-4 sm:py-6">
+      <div className="mb-4 sm:mb-6">
+        <h1 className="text-xl font-bold sm:text-2xl">Text Comparison</h1>
+        <p className="text-sm text-muted-foreground sm:text-base">
           Compare text or code files. Paste content or drag and drop files.
         </p>
       </div>
@@ -26,7 +26,7 @@ export function TextDiffPage() {
               setLeftContent(e.target.value);
             }}
             placeholder="Paste original text here or drag and drop a file..."
-            className="min-h-[400px] w-full resize-none rounded-md border bg-background p-4 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+            className="min-h-[200px] w-full resize-none rounded-md border bg-background p-3 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-ring sm:min-h-[400px] sm:p-4"
           />
         </div>
 
@@ -42,7 +42,7 @@ export function TextDiffPage() {
               setRightContent(e.target.value);
             }}
             placeholder="Paste modified text here or drag and drop a file..."
-            className="min-h-[400px] w-full resize-none rounded-md border bg-background p-4 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+            className="min-h-[200px] w-full resize-none rounded-md border bg-background p-3 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-ring sm:min-h-[400px] sm:p-4"
           />
         </div>
       </div>
