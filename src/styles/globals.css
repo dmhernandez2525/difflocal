@@ -148,4 +148,9 @@
     -webkit-user-select: none;
     user-select: none;
   }
+
+  /* Bottom nav clearance on mobile */
+  .pb-safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
 }

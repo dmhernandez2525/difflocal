@@ -2,7 +2,7 @@ import { Shield, WifiOff } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="border-t py-6">
+    <footer className="hidden border-t py-6 md:block">
       <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 sm:flex-row">
         <div className="flex items-center gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-1">

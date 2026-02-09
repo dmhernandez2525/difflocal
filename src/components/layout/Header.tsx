@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { FileText, Image, FileSpreadsheet, Folder, FileType } from 'lucide-react';
+import { FileText, Image, FileSpreadsheet, Folder, FileType, Github } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
 const navItems = [
@@ -20,7 +20,7 @@ export function Header() {
           <span className="text-xl font-bold">DiffLocal</span>
         </Link>
 
-        <nav className="flex items-center space-x-1">
+        <nav className="hidden items-center space-x-1 md:flex">
           {navItems.map(({ path, label, icon: Icon, disabled }) => (
             <Link
               key={path}
@@ -35,7 +35,7 @@ export function Header() {
               aria-disabled={disabled}
             >
               <Icon className="h-4 w-4" />
-              <span className="hidden sm:inline">{label}</span>
+              <span>{label}</span>
             </Link>
           ))}
         </nav>
@@ -45,9 +45,10 @@ export function Header() {
             href="https://github.com/dmhernandez2525/difflocal"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            className="flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
           >
-            GitHub
+            <Github className="h-4 w-4" />
+            <span className="hidden sm:inline">GitHub</span>
           </a>
         </div>
       </div>

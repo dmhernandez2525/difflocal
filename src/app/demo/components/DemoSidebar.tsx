@@ -10,13 +10,18 @@ const categoryIcons = {
   text: FileText,
 };
 
-export function DemoSidebar() {
+interface DemoSidebarProps {
+  onSelectScenario?: () => void;
+}
+
+export function DemoSidebar({ onSelectScenario }: DemoSidebarProps) {
   const navigate = useNavigate();
   const { scenarios, activeScenario, selectScenario, options, updateOptions } = useDemo();
 
   const handleScenarioSelect = (scenario: DemoScenario) => {
     selectScenario(scenario.id);
     navigate(`/demo?scenario=${scenario.id}`, { replace: true });
+    onSelectScenario?.();
   };
 
   const groupedScenarios = scenarios.reduce<Record<string, DemoScenario[]>>((acc, scenario) => {
